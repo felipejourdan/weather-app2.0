@@ -12,9 +12,11 @@ async function handleSubmit(event) {
     const {url} = searchWeather(search)
     const {response, json} = await request(url)
     if(response.ok) {
+        setSearch('')
         setListWeather((listWeather) => {
-            console.log(listWeather)
-            return [...listWeather, json]})
+            localStorage.setItem('weather', JSON.stringify([...listWeather, json]))
+            return [...listWeather, json]
+        })
     }
 }
 
@@ -22,7 +24,7 @@ async function handleSubmit(event) {
   return (
     <form onSubmit={handleSubmit}>
         <input id='search' name='search' placeholder='Digita uma cidade aqui...' value={search}  onChange={({target}) => setSearch(target.value)} />
-        <button>Pesquisar</button>
+        <button>Adicionar</button>
     </form>
   )
 }
