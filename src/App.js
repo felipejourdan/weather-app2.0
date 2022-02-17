@@ -1,9 +1,10 @@
 import './App.css';
-import LocalWeather from './LocalWeather';
+import GeoWeather from './GeoWeather';
+
 
 function App() {
   return <div>
-    <LocalWeather />
+  <GeoWeather />
   </div>;
   
 }
