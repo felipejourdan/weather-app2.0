@@ -1,27 +1,27 @@
-import React from 'react'
+import React from 'react';
 
 const useFetch = () => {
-const [data, setData] = React.useState(null)
+  const [data, setData] = React.useState(null);
 
-const request = React.useCallback(async (url) => {
+  const request = React.useCallback(async (url) => {
     let response;
     let json;
     try {
-        response = await fetch (url)
-        json = await response.json()
-    } catch(err) {
-        json = null
+      response = await fetch(url);
+      json = await response.json();
+    } catch (err) {
+      json = null;
     } finally {
-        setData(json)
-        return {response, json}
+      setData(json);
+      // eslint-disable-next-line no-unsafe-finally
+      return { response, json };
     }
-}, [])
-
+  }, []);
 
   return {
-      data,
-      request
-  }
-}
+    data,
+    request,
+  };
+};
 
-export default useFetch
+export default useFetch;

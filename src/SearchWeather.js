@@ -2,6 +2,7 @@ import React from 'react';
 import { searchWeather } from './Api';
 import useFetch from './useFetch';
 
+// eslint-disable-next-line react/prop-types
 function SearchWeather({ setListWeather }) {
   const { request } = useFetch();
   const [search, setSearch] = React.useState('');

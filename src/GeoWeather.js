@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { getCurrentWheather } from './Api';
 import SearchWeather from './SearchWeather';
@@ -10,6 +11,7 @@ function GeoWeather(props) {
   const { request } = useFetch();
   const [lat, setLat] = React.useState('38.7071');
   const [lon, setLon] = React.useState('-9.1354938');
+  // eslint-disable-next-line react/destructuring-assignment
   const [listWeather, setListWeather] = React.useState(() => props.listWeather);
 
   function handleClick(index) {
