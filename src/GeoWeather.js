@@ -9,8 +9,10 @@ const GeoWeather = (props) => {
     const [lon, setLon] = React.useState('-9.1354938')
     const [listWeather, setListWeather] = React.useState(() => props.listWeather)
 
-function handleClick() {
-    
+function handleClick(index) {
+  listWeather.splice(index, 1)
+  localStorage.setItem('weather', JSON.stringify(listWeather))
+  window.location.reload()
 }
 
 
@@ -37,16 +39,18 @@ if(localStorage.getItem('weather')){
 
 if(listWeather) {
 return (
-<div>
+  <div>
     <SearchWeather setListWeather={setListWeather} />
-    {listWeather.map((el) => (
-        <div key={el.id}>
+<div>
+    {listWeather.map((el, index) => (
+        <div key={index}>
         <h1>{el.name}</h1>
-        <p>max:{el.main.temp_max}</p>
-        <p>min:{el.main.temp_min}</p>
-        <button onClick={handleClick}>excluir</button>
+        <p>max:{el.main.temp_max}ºc</p>
+        <p>min:{el.main.temp_min}ºc</p>
+        <button onClick={() => handleClick(index)}>Delete</button>
         </div>
         ))}
+</div>
 </div>
 )
   } else return null

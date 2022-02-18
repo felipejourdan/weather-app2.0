@@ -20,7 +20,6 @@ async function handleSubmit(event) {
     }
 }
 
-
   return (
     <form onSubmit={handleSubmit}>
         <input id='search' name='search' placeholder='Digita uma cidade aqui...' value={search}  onChange={({target}) => setSearch(target.value)} />
