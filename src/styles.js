@@ -10,11 +10,21 @@ text-align: center
 `;
 
 export const LocaleInfo = styled.div`
-    width: 30vw;
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 50%;
+    text-align: center;
+    align-items: center;
     
+`;
+
+export const WeatherInfo = styled.div`
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    justify-items: center;
 `;
 
 export const Button = styled.button`
@@ -23,14 +33,14 @@ export const Button = styled.button`
 `;
 
 export const Img = styled.img`
-   
+
 `;
 
 export const Title = styled.h1`
     font-size: 1rem; 
     
 `;
-export const WeatherInfo = styled.span`
+export const WeatherApp = styled.div`
     font-size: 1rem; 
     margin-top: 3rem
     

@@ -3,7 +3,7 @@ import { getCurrentWheather } from './Api';
 import SearchWeather from './SearchWeather';
 import useFetch from './useFetch';
 import {
-  Title, Container, WeatherInfo, TempInfo, LocaleInfo, Button, Img,
+  Title, Container, WeatherInfo, WeatherApp, TempInfo, LocaleInfo, Button, Img,
 } from './styles';
 
 function GeoWeather(props) {
@@ -36,19 +36,20 @@ function GeoWeather(props) {
     }
   }, [request, lat, lon]);
 
-  console.log(listWeather);
-
   if (listWeather) {
     return (
       <Container>
         <SearchWeather setListWeather={setListWeather} />
         {listWeather.map((el, index) => (
-          <WeatherInfo key={el.id}>
+          <WeatherApp key={el.id}>
             <LocaleInfo>
               <Title>{el.name}</Title>
               <Button type="button" onClick={() => handleClick(index)}>x</Button>
             </LocaleInfo>
-            <Img src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`} />
+            <WeatherInfo>
+              <Img src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`} />
+              <span>{el.weather[0].description}</span>
+            </WeatherInfo>
             <TempInfo>
               <span>
                 max:
@@ -61,7 +62,7 @@ function GeoWeather(props) {
                 ºc
               </span>
             </TempInfo>
-          </WeatherInfo>
+          </WeatherApp>
         ))}
       </Container>
     );
