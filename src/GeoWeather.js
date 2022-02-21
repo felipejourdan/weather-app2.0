@@ -9,8 +9,9 @@ import {
 
 function GeoWeather(props) {
   const { request } = useFetch();
-  const [lat, setLat] = React.useState('38.7071');
-  const [lon, setLon] = React.useState('-9.1354938');
+  const [lat, setLat] = React.useState(38.7071);
+  const [lon, setLon] = React.useState(-9.1354938);
+  const [loading, setLoading] = React.useState(true);
   // eslint-disable-next-line react/destructuring-assignment
   const [listWeather, setListWeather] = React.useState(() => props.listWeather);
 
@@ -23,21 +24,27 @@ function GeoWeather(props) {
   React.useEffect(() => {
     if (localStorage.getItem('weather')) {
       setListWeather(JSON.parse(localStorage.getItem('weather')));
+      setLoading(false);
     } else {
-      const fetchData = async () => {
-        navigator.geolocation.getCurrentPosition(({ coords }) => {
-          setLat(coords.latitude);
-          setLon(coords.longitude);
-        });
+      navigator.geolocation.getCurrentPosition(async ({ coords }) => {
+        setLat(coords.latitude);
+        setLon(coords.longitude);
+        const { url } = getCurrentWheather(coords.latitude, coords.longitude);
+        const { json } = await request(url);
+        setListWeather([json]);
+        localStorage.setItem('weather', JSON.stringify([json]));
+        setLoading(false);
+      }, async () => {
         const { url } = getCurrentWheather(lat, lon);
         const { json } = await request(url);
         setListWeather([json]);
         localStorage.setItem('weather', JSON.stringify([json]));
-      };
-      fetchData();
+        setLoading(false);
+      });
     }
   }, [request, lat, lon]);
 
+  if (loading) { return <Container>Carregando..</Container>; }
   if (listWeather) {
     return (
       <Container>
